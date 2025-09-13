@@ -1,0 +1,82 @@
+package com.lcwd.Krushi_Seva_Kendra.Inventory.controller;
+
+import com.lcwd.Krushi_Seva_Kendra.Inventory.service.InventoryService;
+import com.lcwd.Krushi_Seva_Kendra.Inventory.dto.SellRequest;
+import com.lcwd.Krushi_Seva_Kendra.Inventory.dto.ApiResponse;
+import com.lcwd.Krushi_Seva_Kendra.Inventory.model.SaleRecord;
+import com.lcwd.Krushi_Seva_Kendra.Inventory.model.Seed;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/inventory")
+public class InventoryController {
+
+    private static final Logger logger = LoggerFactory.getLogger(InventoryController.class);
+
+    private final InventoryService service;
+
+    public InventoryController(InventoryService service) {
+        this.service = service;
+    }
+
+    // Company Purchase API
+    @PostMapping("/purchase")
+    public ResponseEntity<ApiResponse<Seed>> purchase(@RequestParam String itemName,
+                                                      @RequestParam String companyName,
+                                                      @RequestParam double qty,
+                                                      @RequestParam String invoiceNo) {
+        logger.info("Received purchase request: item={}, company={}, qty={}, invoice={}",
+                itemName, companyName, qty, invoiceNo);
+
+        Seed seed = service.purchaseSeed(itemName, companyName, qty, invoiceNo);
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(new ApiResponse<>(true, "Purchase successful", seed));
+    }
+
+    // Customer Sell API
+    @PostMapping("/sell")
+    public ResponseEntity<ApiResponse<String>> sell(@RequestBody SellRequest request) {
+        logger.info("Received sell request: {}", request);
+
+        String result = service.sellSeed(
+                request.getItemName(),
+                request.getCompanyName(),
+                request.getQty(),
+                request.getInvoiceNo(),
+                request.getCustomerName()
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(new ApiResponse<>(true, "Sale processed", result));
+    }
+
+    //Get all Seeds
+    @GetMapping("/seeds")
+    public ResponseEntity<ApiResponse<List<Seed>>> getAllSeeds() {
+        logger.info("Fetching all seeds");
+
+        List<Seed> seeds = service.getAllSeeds();
+        return ResponseEntity
+                .ok(new ApiResponse<>(true, "All seeds fetched", seeds));
+    }
+
+    //Get all Sales
+    @GetMapping("/sales")
+    public ResponseEntity<ApiResponse<List<SaleRecord>>> getAllSales() {
+        logger.info("Fetching all sales records");
+
+        List<SaleRecord> sales = service.getAllSales();
+        return ResponseEntity
+                .ok(new ApiResponse<>(true, "All sales fetched", sales));
+    }
+}
+
