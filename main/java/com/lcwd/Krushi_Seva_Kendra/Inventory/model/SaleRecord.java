@@ -10,7 +10,10 @@ public class SaleRecord {
     @Id
     private String id;
     private String seedId;
-    private double soldQty;
+    private double soldQty;  //quantity sold
+    private double rate;    // market rate at the time of sale
+    private double total;  // qty * rate
     private String date;
     private String invoiceNumber;
+    private String billType;
 }

@@ -1,5 +1,6 @@
 package com.lcwd.Krushi_Seva_Kendra.Inventory.controller;
 
+import com.lcwd.Krushi_Seva_Kendra.Inventory.dto.PurchaseRequest;
 import com.lcwd.Krushi_Seva_Kendra.Inventory.service.InventoryService;
 import com.lcwd.Krushi_Seva_Kendra.Inventory.dto.SellRequest;
 import com.lcwd.Krushi_Seva_Kendra.Inventory.dto.ApiResponse;
@@ -27,14 +28,13 @@ public class InventoryController {
 
     // Company Purchase API
     @PostMapping("/purchase")
-    public ResponseEntity<ApiResponse<Seed>> purchase(@RequestParam String itemName,
-                                                      @RequestParam String companyName,
-                                                      @RequestParam double qty,
-                                                      @RequestParam String invoiceNo) {
-        logger.info("Received purchase request: item={}, company={}, qty={}, invoice={}",
-                itemName, companyName, qty, invoiceNo);
+    public ResponseEntity<ApiResponse<Seed>> purchase(@RequestParam String invoiceNo,
+                                                      @RequestBody PurchaseRequest request) {
+        logger.info("Received purchase request: item={}, company={}, qty={}, rate={}, invoice={}",
+                request.getItemName(), request.getCompanyName(), request.getQty(), request.getRate(), invoiceNo);
 
-        Seed seed = service.purchaseSeed(itemName, companyName, qty, invoiceNo);
+        // Pass full request instead of individual fields
+        Seed seed = service.purchaseSeed(request, invoiceNo);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -43,15 +43,18 @@ public class InventoryController {
 
     // Customer Sell API
     @PostMapping("/sell")
-    public ResponseEntity<ApiResponse<String>> sell(@RequestBody SellRequest request) {
-        logger.info("Received sell request: {}", request);
+    public ResponseEntity<ApiResponse<String>> sell(@RequestBody SellRequest request,
+                                                    @RequestParam String billType) {
+        logger.info("Received sell request: {}", request, billType);
 
         String result = service.sellSeed(
                 request.getItemName(),
                 request.getCompanyName(),
                 request.getQty(),
+                request.getRate(),
                 request.getInvoiceNo(),
-                request.getCustomerName()
+                request.getCustomerName(),
+                request.getBillType()   //pass extra param to service
         );
 
         return ResponseEntity
