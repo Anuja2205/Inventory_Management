@@ -1,6 +1,7 @@
 package com.lcwd.Krushi_Seva_Kendra.Inventory.controller;
 
 import com.lcwd.Krushi_Seva_Kendra.Inventory.dto.PurchaseRequest;
+import com.lcwd.Krushi_Seva_Kendra.Inventory.dto.SeedResponse;
 import com.lcwd.Krushi_Seva_Kendra.Inventory.service.InventoryService;
 import com.lcwd.Krushi_Seva_Kendra.Inventory.dto.SellRequest;
 import com.lcwd.Krushi_Seva_Kendra.Inventory.dto.ApiResponse;
@@ -28,17 +29,17 @@ public class InventoryController {
 
     // Company Purchase API
     @PostMapping("/purchase")
-    public ResponseEntity<ApiResponse<Seed>> purchase(@RequestParam String invoiceNo,
+    public ResponseEntity<ApiResponse<SeedResponse>> purchase(@RequestParam String invoiceNo,
                                                       @RequestBody PurchaseRequest request) {
         logger.info("Received purchase request: item={}, company={}, qty={}, rate={}, invoice={}",
                 request.getItemName(), request.getCompanyName(), request.getQty(), request.getRate(), invoiceNo);
 
         // Pass full request instead of individual fields
-        Seed seed = service.purchaseSeed(request, invoiceNo);
+        SeedResponse seedResponse = service.purchaseSeed(request, invoiceNo);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(new ApiResponse<>(true, "Purchase successful", seed));
+                .body(new ApiResponse<>(true, "Purchase successful", seedResponse));
     }
 
     // Customer Sell API
@@ -64,10 +65,10 @@ public class InventoryController {
 
     //Get all Seeds
     @GetMapping("/seeds")
-    public ResponseEntity<ApiResponse<List<Seed>>> getAllSeeds() {
+    public ResponseEntity<ApiResponse<List<SeedResponse>>> getAllSeeds() {
         logger.info("Fetching all seeds");
 
-        List<Seed> seeds = service.getAllSeeds();
+        List<SeedResponse> seeds = service.getAllSeeds();
         return ResponseEntity
                 .ok(new ApiResponse<>(true, "All seeds fetched", seeds));
     }
