@@ -12,5 +12,5 @@ public class Customer {
     @Id
     private String id;
     private String customerName;
-    private List<PurchaseDetail> purchasedSeed; //ek list customer cha purchase history
+    private List<PurchaseDetail> purchasedSeed; //list of customer's purchase history.
 }
