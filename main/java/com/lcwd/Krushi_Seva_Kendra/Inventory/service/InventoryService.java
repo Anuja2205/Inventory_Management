@@ -1,6 +1,7 @@
 package com.lcwd.Krushi_Seva_Kendra.Inventory.service;
 
 import com.lcwd.Krushi_Seva_Kendra.Inventory.dto.PurchaseRequest;
+import com.lcwd.Krushi_Seva_Kendra.Inventory.dto.SeedResponse;
 import com.lcwd.Krushi_Seva_Kendra.Inventory.model.*;
 import com.lcwd.Krushi_Seva_Kendra.Inventory.repository.CustomerRepository;
 import com.lcwd.Krushi_Seva_Kendra.Inventory.repository.PurchaseRecordRepository;
@@ -36,7 +37,7 @@ public class InventoryService {
     }
 
     //  Purchase (increase stock)
-    public Seed purchaseSeed(PurchaseRequest request, String invoiceNo) {
+    public SeedResponse purchaseSeed(PurchaseRequest request, String invoiceNo) {
 
         logger.info("Processing purchase: item={}, company={}, qty={}, rate={}, invoice={}",
                 request.getItemName(), request.getCompanyName(), request.getQty(), request.getRate(), invoiceNo);
@@ -67,6 +68,7 @@ public class InventoryService {
         logger.info("Stock updated for {}-{}, new quantity={}, new rate={}",
                 request.getItemName(), request.getCompanyName(), seed.getQuantity(), seed.getRate());
 
+
         // Save purchase record
          PurchaseRecord pr = new PurchaseRecord();
          pr.setSeedId(seed.getBillNo());
@@ -78,9 +80,24 @@ public class InventoryService {
          pr.setInvoiceNumber(invoiceNo);
          purchaseRecordRepo.save(pr);
 
-         logger.info("Purchase record saved successfully, invoice={}", invoiceNo, request.getItemName(), request.getCompanyName());
+         logger.info("Purchase record saved successfully, invoice={}", invoiceNo);
 
-         return seed;
+
+    SeedResponse sr = new SeedResponse();
+        sr.setBillNo(seed.getBillNo());
+        sr.setItemName(seed.getItemName());
+        sr.setCompanyName(seed.getCompanyName());
+        sr.setBatchNo(seed.getBatchNo());
+        sr.setPacking(seed.getPacking());
+        sr.setExpiry(seed.getExpiry());
+        sr.setQuantity(seed.getQuantity());
+        sr.setRate(seed.getRate());
+        sr.setTotal(seed.getTotal());
+        sr.setBillType(seed.getBillType());
+        sr.setInvoiceNumber(seed.getInvoiceNumber());
+
+        return sr;
+
     }
 
     //  Sale (decrease stock)
@@ -164,8 +181,28 @@ public class InventoryService {
         return saleRecordRepo.findAll();
     }
 
-    public List<Seed> getAllSeeds() {
-        logger.info("Fetching all seed records");
-        return seedRepo.findAll();
-    }
+
+   public List<SeedResponse> getAllSeeds() {
+       logger.info("Fetching all seed records");
+
+       return seedRepo.findAll()
+               .stream()
+               .map(seed -> {
+                   SeedResponse sr = new SeedResponse();
+                   sr.setBillNo(seed.getBillNo());
+                   sr.setItemName(seed.getItemName());
+                   sr.setCompanyName(seed.getCompanyName());
+                   sr.setBatchNo(seed.getBatchNo());
+                   sr.setPacking(seed.getPacking());
+                   sr.setExpiry(seed.getExpiry());
+                   sr.setQuantity(seed.getQuantity());
+                   sr.setRate(seed.getRate());
+                   sr.setTotal(seed.getTotal());
+                   sr.setBillType(seed.getBillType());
+                   sr.setInvoiceNumber(seed.getInvoiceNumber());
+                   return sr;
+               })
+               .toList();
+   }
+
 }
