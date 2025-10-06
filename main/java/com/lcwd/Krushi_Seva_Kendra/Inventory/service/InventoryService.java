@@ -181,10 +181,7 @@ public class InventoryService {
         return saleRecordRepo.findAll();
     }
 
-   /* public List<Seed> getAllSeeds() {
-        logger.info("Fetching all seed records");
-        return seedRepo.findAll();
-    }*/
+
    public List<SeedResponse> getAllSeeds() {
        logger.info("Fetching all seed records");
 
@@ -208,4 +205,3 @@ public class InventoryService {
                .toList();
    }
 
-}
