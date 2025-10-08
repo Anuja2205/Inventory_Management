@@ -1,4 +1,4 @@
-package com.lcwd.Krushi_Seva_Kendra.Inventory.util;
+package com.lcwd.Krushi_Seva_Kendra.Inventory.Util;
 
 public class AppConstants {
     public static final String SEED_NOT_FOUND = "Seed not found";

@@ -1,4 +1,4 @@
-package com.lcwd.Krushi_Seva_Kendra.Inventory.model;
+package com.lcwd.Krushi_Seva_Kendra.Inventory.Model;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;

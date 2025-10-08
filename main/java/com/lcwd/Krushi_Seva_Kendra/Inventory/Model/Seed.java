@@ -1,15 +1,16 @@
-package com.lcwd.Krushi_Seva_Kendra.Inventory.dto;
+package com.lcwd.Krushi_Seva_Kendra.Inventory.Model;
+
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class SeedResponse {
+@Document(collection= "seeds")
+public class Seed {
     @Id
     private String billNo;
     private String itemName;
@@ -22,4 +23,5 @@ public class SeedResponse {
     private double total;
     private String billType;
     private String invoiceNumber;
+
 }

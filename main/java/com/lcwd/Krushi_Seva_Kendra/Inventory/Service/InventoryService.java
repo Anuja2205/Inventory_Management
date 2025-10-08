@@ -1,13 +1,13 @@
-package com.lcwd.Krushi_Seva_Kendra.Inventory.service;
+package com.lcwd.Krushi_Seva_Kendra.Inventory.Service;
 
-import com.lcwd.Krushi_Seva_Kendra.Inventory.dto.PurchaseRequest;
-import com.lcwd.Krushi_Seva_Kendra.Inventory.dto.SeedResponse;
-import com.lcwd.Krushi_Seva_Kendra.Inventory.model.*;
-import com.lcwd.Krushi_Seva_Kendra.Inventory.repository.CustomerRepository;
-import com.lcwd.Krushi_Seva_Kendra.Inventory.repository.PurchaseRecordRepository;
-import com.lcwd.Krushi_Seva_Kendra.Inventory.repository.SaleRecordRepository;
-import com.lcwd.Krushi_Seva_Kendra.Inventory.repository.SeedRepository;
-import com.lcwd.Krushi_Seva_Kendra.Inventory.exception.ResourceNotFoundException;
+import com.lcwd.Krushi_Seva_Kendra.Inventory.Dto.PurchaseRequest;
+import com.lcwd.Krushi_Seva_Kendra.Inventory.Dto.SeedResponse;
+import com.lcwd.Krushi_Seva_Kendra.Inventory.Model.*;
+import com.lcwd.Krushi_Seva_Kendra.Inventory.Repository.CustomerRepository;
+import com.lcwd.Krushi_Seva_Kendra.Inventory.Repository.PurchaseRecordRepository;
+import com.lcwd.Krushi_Seva_Kendra.Inventory.Repository.SaleRecordRepository;
+import com.lcwd.Krushi_Seva_Kendra.Inventory.Repository.SeedRepository;
+import com.lcwd.Krushi_Seva_Kendra.Inventory.Exception.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -72,9 +72,9 @@ public class InventoryService {
         // Save purchase record
          PurchaseRecord pr = new PurchaseRecord();
          pr.setSeedId(seed.getBillNo());
-        pr.setItemName(request.getItemName());
-        pr.setCompanyName(request.getCompanyName());
-        pr.setPurchasedQty(request.getQty());
+         pr.setItemName(request.getItemName());
+         pr.setCompanyName(request.getCompanyName());
+         pr.setPurchasedQty(request.getQty());
          pr.setPurchasedRate(request.getRate());
          pr.setDate(new Date().toString());
          pr.setInvoiceNumber(invoiceNo);
@@ -181,10 +181,7 @@ public class InventoryService {
         return saleRecordRepo.findAll();
     }
 
-   /* public List<Seed> getAllSeeds() {
-        logger.info("Fetching all seed records");
-        return seedRepo.findAll();
-    }*/
+
    public List<SeedResponse> getAllSeeds() {
        logger.info("Fetching all seed records");
 

@@ -1,4 +1,4 @@
-package com.lcwd.Krushi_Seva_Kendra.Inventory.exception;
+package com.lcwd.Krushi_Seva_Kendra.Inventory.Exception;
 
 import org. slf4j.Logger;
 import org.slf4j.LoggerFactory;

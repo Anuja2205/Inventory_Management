@@ -1,6 +1,6 @@
-package com.lcwd.Krushi_Seva_Kendra.Inventory.repository;
+package com.lcwd.Krushi_Seva_Kendra.Inventory.Repository;
 
-import com.lcwd.Krushi_Seva_Kendra.Inventory.model.Customer;
+import com.lcwd.Krushi_Seva_Kendra.Inventory.Model.Customer;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;

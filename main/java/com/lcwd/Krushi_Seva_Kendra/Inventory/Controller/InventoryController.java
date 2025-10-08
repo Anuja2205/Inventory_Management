@@ -1,12 +1,11 @@
-package com.lcwd.Krushi_Seva_Kendra.Inventory.controller;
+package com.lcwd.Krushi_Seva_Kendra.Inventory.Controller;
 
-import com.lcwd.Krushi_Seva_Kendra.Inventory.dto.PurchaseRequest;
-import com.lcwd.Krushi_Seva_Kendra.Inventory.dto.SeedResponse;
-import com.lcwd.Krushi_Seva_Kendra.Inventory.service.InventoryService;
-import com.lcwd.Krushi_Seva_Kendra.Inventory.dto.SellRequest;
-import com.lcwd.Krushi_Seva_Kendra.Inventory.dto.ApiResponse;
-import com.lcwd.Krushi_Seva_Kendra.Inventory.model.SaleRecord;
-import com.lcwd.Krushi_Seva_Kendra.Inventory.model.Seed;
+import com.lcwd.Krushi_Seva_Kendra.Inventory.Dto.PurchaseRequest;
+import com.lcwd.Krushi_Seva_Kendra.Inventory.Dto.SeedResponse;
+import com.lcwd.Krushi_Seva_Kendra.Inventory.Service.InventoryService;
+import com.lcwd.Krushi_Seva_Kendra.Inventory.Dto.SellRequest;
+import com.lcwd.Krushi_Seva_Kendra.Inventory.Dto.ApiResponse;
+import com.lcwd.Krushi_Seva_Kendra.Inventory.Model.SaleRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

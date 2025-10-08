@@ -1,4 +1,4 @@
-package com.lcwd.Krushi_Seva_Kendra.Inventory.dto;
+package com.lcwd.Krushi_Seva_Kendra.Inventory.Dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
